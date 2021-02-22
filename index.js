@@ -9,8 +9,12 @@ client.on('ready', () => {
 });
 
 client.on('message', (message) => {
-  if (message.content === '!inhouse' && message.member.hasPermission("ADMINISTRATOR")) {
-    message.channel.send('Starting 5v5 in house! React with :trophy: in the next 10 minutes to join!');
+  if (message.content === '!inhouse' ) {
+    if (message.member.hasPermission("ADMINISTRATOR")) {
+      message.channel.send('Starting 5v5 in house! React with :trophy: in the next 10 minutes to join!');
+    } else {
+      message.channel.send('Sorry, only admins can start inhouses!')
+    }
   };
 
   if (message.content === 'Starting 5v5 in house! React with :trophy: in the next 10 minutes to join!' && message.author.id === '812851891410698260') {

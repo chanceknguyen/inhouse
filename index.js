@@ -15,7 +15,7 @@ client.on('message', (message) => {
 
   if (message.content === 'Starting 5v5 in house! React with :trophy: in the next 10 minutes to join!' && message.author.id === '812851891410698260') {
     const filter = (reaction) => reaction.emoji.identifier === '%F0%9F%8F%86';
-    message.awaitReactions(filter, {max: 10, time: 600000})
+    message.awaitReactions(filter, {max: 2, time: 60000})
       .then(collected => {
         if (!collected.array()[0] || collected.array()[0].users.cache.size < 1) {
           throw new Error();

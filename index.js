@@ -2,8 +2,6 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 require ('dotenv').config();
 
-let participants = [];
-
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
@@ -21,13 +19,15 @@ client.on('message', (message) => {
     const filter = (reaction) => reaction.emoji.identifier === '%F0%9F%8F%86';
     message.awaitReactions(filter, {max: 10, time: 600000})
       .then(collected => {
+        let participants = [];
         if (!collected.array()[0] || collected.array()[0].users.cache.size < 10) {
           throw new Error();
         } else {
           collected.array()[0].users.cache.each(user => participants.push(user.id))
         }
+        return participants
       })
-      .then(() => {
+      .then((participants) => {
         const team1 = [];
         const team2 = [];
         let flag = true;

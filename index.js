@@ -9,15 +9,15 @@ client.on('ready', () => {
 });
 
 client.on('message', (message) => {
-  if (message.content === '!inhouse') {
+  if (message.content === '!inhouse' && message.member.hasPermission("ADMINISTRATOR")) {
     message.channel.send('Starting 5v5 in house! React with :trophy: in the next 10 minutes to join!');
   };
 
   if (message.content === 'Starting 5v5 in house! React with :trophy: in the next 10 minutes to join!' && message.author.id === '812851891410698260') {
     const filter = (reaction) => reaction.emoji.identifier === '%F0%9F%8F%86';
-    message.awaitReactions(filter, {max: 2, time: 60000})
+    message.awaitReactions(filter, {max: 10, time: 600000})
       .then(collected => {
-        if (!collected.array()[0] || collected.array()[0].users.cache.size < 1) {
+        if (!collected.array()[0] || collected.array()[0].users.cache.size < 10) {
           throw new Error();
         } else {
           collected.array()[0].users.cache.each(user => participants.push(user.id))
